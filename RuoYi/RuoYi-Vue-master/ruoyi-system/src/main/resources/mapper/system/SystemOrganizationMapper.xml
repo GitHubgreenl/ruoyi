@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.commondata.mapper.SystemOrganizationMapper">
+    
+    <resultMap type="SystemOrganization" id="SystemOrganizationResult">
+        <result property="id"    column="id"    />
+        <result property="organizationID"    column="OrganizationID"    />
+        <result property="levelCode"    column="LevelCode"    />
+        <result property="databaseID"    column="DatabaseID"    />
+        <result property="name"    column="Name"    />
+        <result property="type"    column="Type"    />
+        <result property="levelType"    column="LevelType"    />
+        <result property="coefficientAltitude"    column="CoefficientAltitude"    />
+        <result property="rawToClinkerCoff"    column="RawToClinkerCoff"    />
+        <result property="enabled"    column="ENABLED"    />
+        <result property="legalRepresentative"    column="LegalRepresentative"    />
+        <result property="address"    column="Address"    />
+        <result property="contacts"    column="Contacts"    />
+        <result property="contactInfo"    column="ContactInfo"    />
+        <result property="commissioningDate"    column="CommissioningDate"    />
+        <result property="products"    column="Products"    />
+        <result property="remarks"    column="Remarks"    />
+    </resultMap>
+
+    <sql id="selectSystemOrganizationVo">
+        select id, OrganizationID, LevelCode, DatabaseID, Name, Type, LevelType, CoefficientAltitude, RawToClinkerCoff, ENABLED, LegalRepresentative, Address, Contacts, ContactInfo, CommissioningDate, Products, Remarks from system_organization
+    </sql>
+
+    <select id="selectSystemOrganizationList" parameterType="SystemOrganization" resultMap="SystemOrganizationResult">
+        <include refid="selectSystemOrganizationVo"/>
+        <where>  
+            <if test="organizationID != null "> and OrganizationID = #{organizationID}</if>
+            <if test="levelCode != null  and LevelCode != ''"> and LevelCode = #{levelCode}</if>
+            <if test="name != null  and Name != ''"> and Name like concat('%', #{name}, '%')</if>
+            <if test="type != null  and Type != ''"> and Type = #{type}</if>
+            <if test="levelType != null  and LevelType != ''"> and LevelType = #{levelType}</if>
+            <if test="coefficientAltitude != null "> and CoefficientAltitude = #{coefficientAltitude}</if>
+            <if test="rawToClinkerCoff != null "> and RawToClinkerCoff = #{rawToClinkerCoff}</if>
+            <if test="enabled != null  and ENABLED != ''"> and ENABLED = #{enabled}</if>
+            <if test="legalRepresentative != null  and LegalRepresentative != ''"> and LegalRepresentative = #{legalRepresentative}</if>
+            <if test="address != null  and Address != ''"> and Address = #{address}</if>
+            <if test="contacts != null  and Contacts != ''"> and Contacts = #{contacts}</if>
+            <if test="contactInfo != null  and ContactInfo != ''"> and ContactInfo = #{contactInfo}</if>
+            <if test="commissioningDate != null "> and CommissioningDate = #{commissioningDate}</if>
+            <if test="products != null  and Products != ''"> and Products = #{products}</if>
+            <if test="remarks != null  and Remarks != ''"> and Remarks = #{remarks}</if>
+        </where>
+    </select>
+    <select id="selectLevelCode" parameterType="SystemOrganization" resultMap="SystemOrganizationResult">
+        <include refid="selectSystemOrganizationVo"/>
+        <where>
+            <if test="levelCode != null  and levelCode != ''"> and LevelCode = #{levelCode}</if>
+        </where>
+
+    </select>
+    <select id="selectLevelCodeToLevel" parameterType="SystemOrganization" resultMap="SystemOrganizationResult">
+        <include refid="selectSystemOrganizationVo"/>
+        <where>
+            <if test="levelCode != null  and levelCode != ''"> and LevelCode like concat("%",#{levelCode},"%")</if>
+        </where>
+
+    </select>
+
+    <select id="selectSystemOrganizationById" parameterType="String" resultMap="SystemOrganizationResult">
+        <include refid="selectSystemOrganizationVo"/>
+        where id = #{id}
+    </select>
+
+    <insert id="insertSystemOrganization" parameterType="SystemOrganization">
+        insert into system_organization
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">id,</if>
+            <if test="organizationID != null">OrganizationID,</if>
+            <if test="levelCode != null">LevelCode,</if>
+            <if test="databaseID != null">DatabaseID,</if>
+            <if test="name != null">Name,</if>
+            <if test="type != null">Type,</if>
+            <if test="levelType != null">LevelType,</if>
+            <if test="coefficientAltitude != null">CoefficientAltitude,</if>
+            <if test="rawToClinkerCoff != null">RawToClinkerCoff,</if>
+            <if test="enabled != null">ENABLED,</if>
+            <if test="legalRepresentative != null">LegalRepresentative,</if>
+            <if test="address != null">Address,</if>
+            <if test="contacts != null">Contacts,</if>
+            <if test="contactInfo != null">ContactInfo,</if>
+            <if test="commissioningDate != null">CommissioningDate,</if>
+            <if test="products != null">Products,</if>
+            <if test="remarks != null">Remarks,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">#{id},</if>
+            <if test="organizationID != null">#{organizationID},</if>
+            <if test="levelCode != null">#{levelCode},</if>
+            <if test="databaseID != null">#{databaseID},</if>
+            <if test="name != null">#{name},</if>
+            <if test="type != null">#{type},</if>
+            <if test="levelType != null">#{levelType},</if>
+            <if test="coefficientAltitude != null">#{coefficientAltitude},</if>
+            <if test="rawToClinkerCoff != null">#{rawToClinkerCoff},</if>
+            <if test="enabled != null">#{enabled},</if>
+            <if test="legalRepresentative != null">#{legalRepresentative},</if>
+            <if test="address != null">#{address},</if>
+            <if test="contacts != null">#{contacts},</if>
+            <if test="contactInfo != null">#{contactInfo},</if>
+            <if test="commissioningDate != null">#{commissioningDate},</if>
+            <if test="products != null">#{products},</if>
+            <if test="remarks != null">#{remarks},</if>
+         </trim>
+    </insert>
+
+    <update id="updateSystemOrganization" parameterType="SystemOrganization">
+        update system_organization
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="organizationID != null">OrganizationID = #{organizationID},</if>
+            <if test="levelCode != null">LevelCode = #{levelCode},</if>
+            <if test="databaseID != null">DatabaseID = #{databaseID},</if>
+            <if test="name != null">Name = #{name},</if>
+            <if test="type != null">Type = #{type},</if>
+            <if test="levelType != null">LevelType = #{levelType},</if>
+            <if test="coefficientAltitude != null">CoefficientAltitude = #{coefficientAltitude},</if>
+            <if test="rawToClinkerCoff != null">RawToClinkerCoff = #{rawToClinkerCoff},</if>
+            <if test="enabled != null">ENABLED = #{enabled},</if>
+            <if test="legalRepresentative != null">LegalRepresentative = #{legalRepresentative},</if>
+            <if test="address != null">Address = #{address},</if>
+            <if test="contacts != null">Contacts = #{contacts},</if>
+            <if test="contactInfo != null">ContactInfo = #{contactInfo},</if>
+            <if test="commissioningDate != null">CommissioningDate = #{commissioningDate},</if>
+            <if test="products != null">Products = #{products},</if>
+            <if test="remarks != null">Remarks = #{remarks},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteSystemOrganizationById" parameterType="String">
+        delete from system_organization where id = #{id}
+    </delete>
+
+    <delete id="deleteSystemOrganizationByIds" parameterType="String">
+        delete from system_organization where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>
